@@ -1,0 +1,51 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.22'
+}
+
+group = 'cc.kafuu'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	jcenter()
+	mavenCentral()
+	maven { url: "https://repo.maven.apache.org/maven2/" }
+}
+
+dependencies {
+	//SpringBoot
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//数据库相关
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+	implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.4.1'
+	implementation 'com.alibaba:druid-spring-boot-starter:1.2.20'
+
+	//日志相关
+	implementation 'io.github.oshai:kotlin-logging-jvm:5.1.0'
+
+
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.withType(KotlinCompile) {
+	kotlinOptions {
+		freeCompilerArgs += '-Xjsr305=strict'
+		jvmTarget = '17'
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
